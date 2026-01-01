@@ -115,6 +115,7 @@
   font-size: 0.875rem;
   color: #6b7280;
   margin-bottom: 0.75rem;
+  font-style: normal;
 }
 
 .location-icon {
@@ -160,6 +161,9 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
 }
 
 .feature-tag {
@@ -213,12 +217,17 @@
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }

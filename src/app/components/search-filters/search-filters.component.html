@@ -1,34 +1,45 @@
-<div class="search-filters">
+<section class="search-filters" aria-labelledby="search-heading">
+  <h2 id="search-heading" class="sr-only">Search and filter storage units</h2>
+
   <!-- Location Search -->
-  <div class="search-bar">
+  <form class="search-bar" role="search" (submit)="$event.preventDefault()">
     <div class="search-input-wrapper">
-      <span class="search-icon">📍</span>
+      <span class="search-icon" aria-hidden="true">📍</span>
+      <label for="location-input" class="sr-only">Enter city or ZIP code</label>
       <input
+        id="location-input"
         type="text"
         [(ngModel)]="filters.location"
+        name="location"
         (ngModelChange)="onLocationChange()"
         placeholder="Enter city or ZIP code"
         class="search-input"
+        autocomplete="off"
       />
     </div>
-    <button class="search-btn">Find Storage</button>
-  </div>
+    <button type="submit" class="search-btn">Find Storage</button>
+  </form>
 
   <!-- Mobile Filter Toggle -->
-  <button class="mobile-filter-toggle" (click)="toggleMobileFilters()">
+  <button
+    class="mobile-filter-toggle"
+    (click)="toggleMobileFilters()"
+    [attr.aria-expanded]="showMobileFilters"
+    aria-controls="filter-options"
+  >
     <span>Filters</span>
     @if (activeFilterCount > 0) {
-      <span class="filter-badge">{{ activeFilterCount }}</span>
+      <span class="filter-badge" [attr.aria-label]="activeFilterCount + ' active filters'">{{ activeFilterCount }}</span>
     }
-    <span class="toggle-icon">{{ showMobileFilters ? '▲' : '▼' }}</span>
+    <span class="toggle-icon" aria-hidden="true">{{ showMobileFilters ? '▲' : '▼' }}</span>
   </button>
 
   <!-- Filter Options -->
-  <div class="filter-options" [class.show-mobile]="showMobileFilters">
+  <div id="filter-options" class="filter-options" [class.show-mobile]="showMobileFilters" role="group" aria-label="Filter options">
     <!-- Size Filter -->
     <div class="filter-group">
-      <label class="filter-label">Unit Size</label>
-      <select [(ngModel)]="filters.size" (ngModelChange)="onSizeChange()" class="filter-select">
+      <label for="size-select" class="filter-label">Unit Size</label>
+      <select id="size-select" [(ngModel)]="filters.size" name="size" (ngModelChange)="onSizeChange()" class="filter-select">
         @for (size of sizes; track size.value) {
           <option [value]="size.value">
             {{ size.label }}{{ size.dimensions ? ' (' + size.dimensions + ')' : '' }}
@@ -39,8 +50,8 @@
 
     <!-- Price Filter -->
     <div class="filter-group">
-      <label class="filter-label">Max Price</label>
-      <select [(ngModel)]="filters.maxPrice" (ngModelChange)="onPriceChange()" class="filter-select">
+      <label for="price-select" class="filter-label">Max Price</label>
+      <select id="price-select" [(ngModel)]="filters.maxPrice" name="maxPrice" (ngModelChange)="onPriceChange()" class="filter-select">
         @for (option of priceOptions; track option.value) {
           <option [ngValue]="option.value">{{ option.label }}</option>
         }
@@ -49,8 +60,8 @@
 
     <!-- Sort By -->
     <div class="filter-group">
-      <label class="filter-label">Sort By</label>
-      <select [(ngModel)]="filters.sortBy" (ngModelChange)="onSortChange()" class="filter-select">
+      <label for="sort-select" class="filter-label">Sort By</label>
+      <select id="sort-select" [(ngModel)]="filters.sortBy" name="sortBy" (ngModelChange)="onSortChange()" class="filter-select">
         <option value="distance">Distance</option>
         <option value="price">Price: Low to High</option>
         <option value="rating">Highest Rated</option>
@@ -58,27 +69,29 @@
     </div>
 
     <!-- Feature Toggles -->
-    <div class="filter-group features-group">
-      <label class="filter-label">Features</label>
-      <div class="feature-toggles">
+    <fieldset class="filter-group features-group">
+      <legend class="filter-label">Features</legend>
+      <div class="feature-toggles" role="group">
         @for (feature of features; track feature.value) {
           <button
+            type="button"
             class="feature-btn"
             [class.active]="isFeatureActive(feature.value)"
             (click)="toggleFeature(feature.value)"
+            [attr.aria-pressed]="isFeatureActive(feature.value)"
           >
-            <span class="feature-icon">{{ feature.icon }}</span>
+            <span class="feature-icon" aria-hidden="true">{{ feature.icon }}</span>
             <span class="feature-label">{{ feature.label }}</span>
           </button>
         }
       </div>
-    </div>
+    </fieldset>
 
     <!-- Clear Filters -->
     @if (activeFilterCount > 0) {
-      <button class="clear-filters-btn" (click)="clearFilters()">
+      <button type="button" class="clear-filters-btn" (click)="clearFilters()">
         Clear All Filters
       </button>
     }
   </div>
-</div>
+</section>

@@ -1,12 +1,24 @@
 <div class="app-container">
+  <!-- Skip to main content link for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Demo Banner -->
+  <div class="demo-banner" role="banner" aria-label="Demo notice">
+    <span class="demo-badge" aria-hidden="true">DEMO</span>
+    <span>This is a portfolio project demonstrating Angular skills. Data is simulated.</span>
+    <a href="https://github.com/hereshecodes/storage-finder" target="_blank" rel="noopener noreferrer" class="demo-link">
+      View Source<span class="sr-only"> (opens in new tab)</span>
+    </a>
+  </div>
+
   <!-- Header -->
-  <header class="header">
+  <header class="header" role="banner">
     <div class="header-content">
-      <div class="logo">
-        <span class="logo-icon">📦</span>
+      <a href="/" class="logo" aria-label="Storage Finder home">
+        <span class="logo-icon" aria-hidden="true">📦</span>
         <span class="logo-text">Storage Finder</span>
-      </div>
-      <nav class="nav-links">
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="#" class="nav-link">How It Works</a>
         <a href="#" class="nav-link">List Your Facility</a>
         <a href="#" class="nav-link cta-link">Sign In</a>
@@ -15,21 +27,21 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-content">
-      <h1>Find Your Perfect Storage Space</h1>
+      <h1 id="hero-heading">Find Your Perfect Storage Space</h1>
       <p>Compare prices and features from 25,000+ storage facilities nationwide</p>
     </div>
   </section>
 
   <!-- Main Content -->
-  <main class="main-content">
+  <main id="main-content" class="main-content" role="main">
     <app-search-filters></app-search-filters>
     <app-unit-list></app-unit-list>
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="footer-content">
       <div class="footer-section">
         <h4>Storage Finder</h4>
@@ -54,7 +66,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Storage Finder. Demo project by <a href="https://hereshecodes.com" target="_blank">hereshecodes</a></p>
+      <p>&copy; 2025 Storage Finder. Demo project by <a href="https://hereshecodes.com" target="_blank" rel="noopener noreferrer">hereshecodes<span class="sr-only"> (opens in new tab)</span></a></p>
     </div>
   </footer>
 </div>

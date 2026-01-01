@@ -17,10 +17,17 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
   @media (max-width: 400px) {
     grid-template-columns: 1fr;
   }
+}
+
+.unit-grid-item {
+  list-style: none;
 }
 
 // Loading State

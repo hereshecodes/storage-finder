@@ -1,32 +1,34 @@
-<div class="unit-list-container">
+<section class="unit-list-container" aria-labelledby="results-heading">
   <!-- Results Header -->
   <div class="results-header">
     @if (!loading && units.length > 0) {
-      <h2 class="results-count">{{ units.length }} storage units found</h2>
+      <h2 id="results-heading" class="results-count" aria-live="polite">{{ units.length }} storage units found</h2>
+    } @else {
+      <h2 id="results-heading" class="sr-only">Storage unit results</h2>
     }
   </div>
 
   <!-- Loading State -->
   @if (loading) {
-    <div class="loading-state">
-      <div class="loading-spinner"></div>
+    <div class="loading-state" role="status" aria-live="polite">
+      <div class="loading-spinner" aria-hidden="true"></div>
       <p>Finding the best storage units for you...</p>
     </div>
   }
 
   <!-- Error State -->
   @if (error && !loading) {
-    <div class="error-state">
-      <span class="error-icon">⚠️</span>
+    <div class="error-state" role="alert">
+      <span class="error-icon" aria-hidden="true">⚠️</span>
       <p>{{ error }}</p>
-      <button class="retry-btn">Try Again</button>
+      <button type="button" class="retry-btn">Try Again</button>
     </div>
   }
 
   <!-- Empty State -->
   @if (!loading && !error && units.length === 0) {
-    <div class="empty-state">
-      <span class="empty-icon">🔍</span>
+    <div class="empty-state" role="status" aria-live="polite">
+      <span class="empty-icon" aria-hidden="true">🔍</span>
       <h3>No storage units found</h3>
       <p>Try adjusting your filters or searching a different location.</p>
     </div>
@@ -34,10 +36,12 @@
 
   <!-- Unit Grid -->
   @if (!loading && !error && units.length > 0) {
-    <div class="unit-grid">
+    <ul class="unit-grid" role="list" aria-label="Available storage units">
       @for (unit of units; track trackByUnitId($index, unit)) {
-        <app-unit-card [unit]="unit"></app-unit-card>
+        <li class="unit-grid-item">
+          <app-unit-card [unit]="unit"></app-unit-card>
+        </li>
       }
-    </div>
+    </ul>
   }
-</div>
+</section>

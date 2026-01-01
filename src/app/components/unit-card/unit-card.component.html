@@ -1,13 +1,13 @@
-<article class="unit-card">
+<article class="unit-card" [attr.aria-labelledby]="'facility-' + unit.id">
   <!-- Image Section -->
   <div class="card-image">
-    <img [src]="unit.imageUrl" [alt]="unit.facilityName" loading="lazy" />
+    <img [src]="unit.imageUrl" [alt]="unit.facilityName + ' storage facility'" loading="lazy" />
 
     @if (unit.promotion) {
-      <div class="promo-badge">{{ unit.promotion }}</div>
+      <div class="promo-badge" role="status">{{ unit.promotion }}</div>
     }
 
-    <div class="availability-badge" [class]="availabilityClass">
+    <div class="availability-badge" [class]="availabilityClass" role="status">
       {{ availabilityText }}
     </div>
   </div>
@@ -16,23 +16,23 @@
   <div class="card-content">
     <!-- Header -->
     <div class="card-header">
-      <h3 class="facility-name">{{ unit.facilityName }}</h3>
-      <div class="rating">
-        <div class="stars">
+      <h3 [id]="'facility-' + unit.id" class="facility-name">{{ unit.facilityName }}</h3>
+      <div class="rating" role="img" [attr.aria-label]="unit.rating + ' out of 5 stars based on ' + unit.reviewCount + ' reviews'">
+        <div class="stars" aria-hidden="true">
           @for (filled of getStarArray(); track $index) {
             <span class="star" [class.filled]="filled">★</span>
           }
         </div>
-        <span class="rating-text">{{ unit.rating }} ({{ unit.reviewCount }})</span>
+        <span class="rating-text" aria-hidden="true">{{ unit.rating }} ({{ unit.reviewCount }})</span>
       </div>
     </div>
 
     <!-- Location -->
-    <div class="location">
-      <span class="location-icon">📍</span>
+    <address class="location">
+      <span class="location-icon" aria-hidden="true">📍</span>
       <span class="address">{{ unit.address }}, {{ unit.city }}</span>
-      <span class="distance">{{ unit.distance }} mi</span>
-    </div>
+      <span class="distance">{{ unit.distance }} miles away</span>
+    </address>
 
     <!-- Size Info -->
     <div class="size-info">
@@ -41,22 +41,23 @@
     </div>
 
     <!-- Features -->
-    <div class="features">
+    <ul class="features" aria-label="Unit features">
       @for (feature of displayedFeatures; track feature.key) {
-        <span class="feature-tag">
-          <span class="feature-icon">{{ feature.icon }}</span>
+        <li class="feature-tag">
+          <span class="feature-icon" aria-hidden="true">{{ feature.icon }}</span>
           {{ feature.label }}
-        </span>
+        </li>
       }
-    </div>
+    </ul>
 
     <!-- Footer -->
     <div class="card-footer">
       <div class="price">
+        <span class="sr-only">Price:</span>
         <span class="price-amount">${{ unit.price }}</span>
         <span class="price-period">/month</span>
       </div>
-      <button class="reserve-btn">Reserve Now</button>
+      <button type="button" class="reserve-btn demo-btn" disabled [attr.aria-label]="'View details for ' + unit.facilityName + ' - Demo only'">View Details</button>
     </div>
   </div>
 </article>
