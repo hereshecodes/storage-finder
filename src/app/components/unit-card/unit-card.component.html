@@ -1,0 +1,62 @@
+<article class="unit-card">
+  <!-- Image Section -->
+  <div class="card-image">
+    <img [src]="unit.imageUrl" [alt]="unit.facilityName" loading="lazy" />
+
+    @if (unit.promotion) {
+      <div class="promo-badge">{{ unit.promotion }}</div>
+    }
+
+    <div class="availability-badge" [class]="availabilityClass">
+      {{ availabilityText }}
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="card-content">
+    <!-- Header -->
+    <div class="card-header">
+      <h3 class="facility-name">{{ unit.facilityName }}</h3>
+      <div class="rating">
+        <div class="stars">
+          @for (filled of getStarArray(); track $index) {
+            <span class="star" [class.filled]="filled">★</span>
+          }
+        </div>
+        <span class="rating-text">{{ unit.rating }} ({{ unit.reviewCount }})</span>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="location">
+      <span class="location-icon">📍</span>
+      <span class="address">{{ unit.address }}, {{ unit.city }}</span>
+      <span class="distance">{{ unit.distance }} mi</span>
+    </div>
+
+    <!-- Size Info -->
+    <div class="size-info">
+      <span class="size-badge">{{ sizeLabel }}</span>
+      <span class="size-dimensions">{{ sizeDimensions }}</span>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      @for (feature of displayedFeatures; track feature.key) {
+        <span class="feature-tag">
+          <span class="feature-icon">{{ feature.icon }}</span>
+          {{ feature.label }}
+        </span>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="price">
+        <span class="price-amount">${{ unit.price }}</span>
+        <span class="price-period">/month</span>
+      </div>
+      <button class="reserve-btn">Reserve Now</button>
+    </div>
+  </div>
+</article>

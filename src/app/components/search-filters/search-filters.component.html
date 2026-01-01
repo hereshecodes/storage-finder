@@ -1,0 +1,84 @@
+<div class="search-filters">
+  <!-- Location Search -->
+  <div class="search-bar">
+    <div class="search-input-wrapper">
+      <span class="search-icon">📍</span>
+      <input
+        type="text"
+        [(ngModel)]="filters.location"
+        (ngModelChange)="onLocationChange()"
+        placeholder="Enter city or ZIP code"
+        class="search-input"
+      />
+    </div>
+    <button class="search-btn">Find Storage</button>
+  </div>
+
+  <!-- Mobile Filter Toggle -->
+  <button class="mobile-filter-toggle" (click)="toggleMobileFilters()">
+    <span>Filters</span>
+    @if (activeFilterCount > 0) {
+      <span class="filter-badge">{{ activeFilterCount }}</span>
+    }
+    <span class="toggle-icon">{{ showMobileFilters ? '▲' : '▼' }}</span>
+  </button>
+
+  <!-- Filter Options -->
+  <div class="filter-options" [class.show-mobile]="showMobileFilters">
+    <!-- Size Filter -->
+    <div class="filter-group">
+      <label class="filter-label">Unit Size</label>
+      <select [(ngModel)]="filters.size" (ngModelChange)="onSizeChange()" class="filter-select">
+        @for (size of sizes; track size.value) {
+          <option [value]="size.value">
+            {{ size.label }}{{ size.dimensions ? ' (' + size.dimensions + ')' : '' }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <!-- Price Filter -->
+    <div class="filter-group">
+      <label class="filter-label">Max Price</label>
+      <select [(ngModel)]="filters.maxPrice" (ngModelChange)="onPriceChange()" class="filter-select">
+        @for (option of priceOptions; track option.value) {
+          <option [ngValue]="option.value">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Sort By -->
+    <div class="filter-group">
+      <label class="filter-label">Sort By</label>
+      <select [(ngModel)]="filters.sortBy" (ngModelChange)="onSortChange()" class="filter-select">
+        <option value="distance">Distance</option>
+        <option value="price">Price: Low to High</option>
+        <option value="rating">Highest Rated</option>
+      </select>
+    </div>
+
+    <!-- Feature Toggles -->
+    <div class="filter-group features-group">
+      <label class="filter-label">Features</label>
+      <div class="feature-toggles">
+        @for (feature of features; track feature.value) {
+          <button
+            class="feature-btn"
+            [class.active]="isFeatureActive(feature.value)"
+            (click)="toggleFeature(feature.value)"
+          >
+            <span class="feature-icon">{{ feature.icon }}</span>
+            <span class="feature-label">{{ feature.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Clear Filters -->
+    @if (activeFilterCount > 0) {
+      <button class="clear-filters-btn" (click)="clearFilters()">
+        Clear All Filters
+      </button>
+    }
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="unit-list-container">
+  <!-- Results Header -->
+  <div class="results-header">
+    @if (!loading && units.length > 0) {
+      <h2 class="results-count">{{ units.length }} storage units found</h2>
+    }
+  </div>
+
+  <!-- Loading State -->
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Finding the best storage units for you...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error && !loading) {
+    <div class="error-state">
+      <span class="error-icon">⚠️</span>
+      <p>{{ error }}</p>
+      <button class="retry-btn">Try Again</button>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading && !error && units.length === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">🔍</span>
+      <h3>No storage units found</h3>
+      <p>Try adjusting your filters or searching a different location.</p>
+    </div>
+  }
+
+  <!-- Unit Grid -->
+  @if (!loading && !error && units.length > 0) {
+    <div class="unit-grid">
+      @for (unit of units; track trackByUnitId($index, unit)) {
+        <app-unit-card [unit]="unit"></app-unit-card>
+      }
+    </div>
+  }
+</div>
