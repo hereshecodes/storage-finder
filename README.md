@@ -1,27 +1,72 @@
-# StorageFinder
+# Storage Finder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+A self-storage marketplace demo built with Angular 17. This is a **portfolio project** demonstrating modern Angular development practices—not a production application.
 
-## Development server
+**[Live Demo](https://storage-finder-eight.vercel.app)** | **[Portfolio](https://hereshecodes.com)**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## About This Project
 
-## Code scaffolding
+Built to demonstrate Angular skills for a role at [Storable](https://www.storable.com/), a leader in self-storage software. The app showcases a marketplace-style interface for finding and comparing storage units.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**This is a demo with simulated data.** No real storage facilities or bookings.
 
-## Build
+## Tech Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular 17** - Standalone components, new control flow syntax (`@if`, `@for`)
+- **TypeScript** - Strict typing throughout
+- **RxJS** - Reactive state management with BehaviorSubjects
+- **SCSS** - Component-scoped styling
 
-## Running unit tests
+## Features
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Search & Filter** - Location search, size/price filters, feature toggles
+- **Responsive Design** - Mobile-first with collapsible filters
+- **WCAG 2.0 Accessible** - Skip links, ARIA labels, keyboard navigation, screen reader support
+- **Demo Mode** - Clear indicators that this is a portfolio project
 
-## Running end-to-end tests
+## Accessibility
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Built with accessibility in mind:
+- Skip to main content link
+- Proper heading hierarchy
+- Form labels and fieldsets
+- ARIA live regions for dynamic content
+- Focus-visible styles
+- Reduced motion support
 
-## Further help
+## Running Locally
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+ng serve
+
+# Build for production
+npm run build
+```
+
+## Project Structure
+
+```
+src/app/
+├── components/
+│   ├── search-filters/   # Search bar and filter controls
+│   ├── unit-card/        # Individual storage unit display
+│   └── unit-list/        # Grid of unit cards with states
+├── models/               # TypeScript interfaces
+├── services/             # Storage service with mock data
+└── app.component.*       # Root component with layout
+```
+
+## Why I Built This
+
+I'm applying for a position at Storable and wanted to demonstrate:
+1. Proficiency with their Angular/TypeScript stack
+2. Understanding of their self-storage domain
+3. Commitment to accessible, maintainable code
+
+---
+
+Built by [hereshecodes](https://hereshecodes.com)
