@@ -16,10 +16,12 @@ Built to demonstrate Angular skills for a role at [Storable](https://www.storabl
 - **TypeScript** - Strict typing throughout
 - **RxJS** - Reactive state management with BehaviorSubjects
 - **SCSS** - Component-scoped styling
+- **Claude AI** - Chatbot powered by Anthropic's Claude API
 
 ## Features
 
 - **Search & Filter** - Location search, size/price filters, feature toggles
+- **AI Chatbot** - Claude-powered assistant with FAQ knowledge base
 - **Responsive Design** - Mobile-first with collapsible filters
 - **WCAG 2.0 Accessible** - Skip links, ARIA labels, keyboard navigation, screen reader support
 - **Demo Mode** - Clear indicators that this is a portfolio project
@@ -52,13 +54,29 @@ npm run build
 ```
 src/app/
 ├── components/
+│   ├── chatbot/          # Claude-powered chat assistant
 │   ├── search-filters/   # Search bar and filter controls
 │   ├── unit-card/        # Individual storage unit display
 │   └── unit-list/        # Grid of unit cards with states
 ├── models/               # TypeScript interfaces
 ├── services/             # Storage service with mock data
 └── app.component.*       # Root component with layout
+
+api/
+└── chat.js               # Vercel serverless function for chatbot
 ```
+
+## Chatbot
+
+The integrated chatbot can answer common questions about:
+- **Pricing** - Unit costs and what affects pricing
+- **Sizes** - Which size is right for different needs
+- **Climate Control** - When and why you need it
+- **Security** - How facilities keep items safe
+- **Access Hours** - When you can visit your unit
+- **Reservations** - How to book a unit
+
+FAQ questions are answered instantly without API calls. More complex questions use Claude for intelligent responses.
 
 ## Why I Built This
 

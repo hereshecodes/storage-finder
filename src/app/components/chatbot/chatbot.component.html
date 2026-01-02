@@ -1,0 +1,136 @@
+<!-- Chat Toggle Button -->
+<button
+  class="chat-toggle"
+  (click)="toggleChat()"
+  [attr.aria-expanded]="isOpen"
+  aria-label="Open chat assistant"
+  [class.has-unread]="hasUnread"
+>
+  @if (isOpen && !isMinimized) {
+    <span class="toggle-icon" aria-hidden="true">✕</span>
+  } @else {
+    <span class="toggle-icon" aria-hidden="true">💬</span>
+    @if (hasUnread) {
+      <span class="unread-badge" aria-label="New message"></span>
+    }
+  }
+</button>
+
+<!-- Chat Window -->
+@if (isOpen) {
+  <div
+    class="chat-window"
+    [class.minimized]="isMinimized"
+    role="dialog"
+    aria-labelledby="chat-title"
+  >
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-info">
+        <span class="assistant-avatar" aria-hidden="true">🤖</span>
+        <div>
+          <h2 id="chat-title" class="header-title">Storage Assistant</h2>
+          <span class="header-status">Powered by Claude AI</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button
+          class="header-btn"
+          (click)="minimizeChat()"
+          aria-label="Minimize chat"
+        >
+          <span aria-hidden="true">−</span>
+        </button>
+        <button
+          class="header-btn"
+          (click)="closeChat()"
+          aria-label="Close chat"
+        >
+          <span aria-hidden="true">✕</span>
+        </button>
+      </div>
+    </div>
+
+    @if (!isMinimized) {
+      <!-- Messages -->
+      <div
+        #messagesContainer
+        class="chat-messages"
+        role="log"
+        aria-live="polite"
+        aria-label="Chat messages"
+      >
+        @for (message of messages; track $index) {
+          <div
+            class="message"
+            [class.user]="message.role === 'user'"
+            [class.assistant]="message.role === 'assistant'"
+          >
+            @if (message.role === 'assistant') {
+              <span class="message-avatar" aria-hidden="true">🤖</span>
+            }
+            <div class="message-content">
+              <p [innerHTML]="message.content"></p>
+            </div>
+          </div>
+        }
+
+        @if (isLoading) {
+          <div class="message assistant">
+            <span class="message-avatar" aria-hidden="true">🤖</span>
+            <div class="message-content">
+              <div class="typing-indicator" aria-label="Assistant is typing">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Quick Questions -->
+      @if (messages.length <= 1) {
+        <div class="quick-questions" role="group" aria-label="Quick questions">
+          @for (q of quickQuestions; track q.label) {
+            <button
+              class="quick-btn"
+              (click)="askQuickQuestion(q.question)"
+              [attr.aria-label]="'Ask: ' + q.question"
+            >
+              {{ q.label }}
+            </button>
+          }
+        </div>
+      }
+
+      <!-- Input -->
+      <div class="chat-input">
+        <label for="chat-input-field" class="sr-only">Type your message</label>
+        <input
+          #inputField
+          id="chat-input-field"
+          type="text"
+          [(ngModel)]="inputMessage"
+          (keydown)="handleKeydown($event)"
+          placeholder="Ask about storage units..."
+          [disabled]="isLoading"
+          autocomplete="off"
+        />
+        <button
+          class="send-btn"
+          (click)="sendMessage()"
+          [disabled]="!inputMessage.trim() || isLoading"
+          aria-label="Send message"
+        >
+          <span aria-hidden="true">➤</span>
+        </button>
+      </div>
+
+      <!-- Demo Notice -->
+      <div class="chat-footer">
+        <span>Demo chatbot with simulated responses</span>
+      </div>
+    }
+  </div>
+}
